@@ -1,3 +1,2 @@
-print("Hello world")
-abc = 123
-print(abc)
+import streamlit as st
+st.write("ABCD"
