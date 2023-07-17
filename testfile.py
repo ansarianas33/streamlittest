@@ -11,12 +11,13 @@ COUNTRY_CODES = {
     'Australia': 'au'
 }
 
-def fetch_search_results(query, location):
+def fetch_search_results(query, location, url):
     params = {
         'q': query,
         'location': location,
         'google_domain': 'google.com',
-        'api_key': API_KEY
+        'api_key': API_KEY,
+        'uule': url
     }
     response = requests.get(BASE_URL, params=params)
     if response.status_code == 200:
@@ -29,11 +30,12 @@ def main():
 
     query = st.text_input('Enter a search query')
     country = st.selectbox('Select a country', list(COUNTRY_CODES.keys()))
+    url = st.text_input('Enter the website URL')
 
     if st.button('Submit'):
-        if query and country:
+        if query and country and url:
             location = COUNTRY_CODES[country]
-            results = fetch_search_results(query, location)
+            results = fetch_search_results(query, location, url)
             if results:
                 st.write(results)
             else:
